@@ -1,0 +1,20 @@
+sudo: required
+language: java
+
+services:
+  - docker
+
+install:
+  - echo "install nothing!"
+
+script:
+  - echo "no tests!"
+
+after_success:
+  - docker --version  # document the version travis is using
+  - pip install --user awscli # install aws cli w/o sudo
+  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
+  - eval $(aws ecr get-login --region us-west-2) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
+  - docker build -t lead-measure-api .
+  - docker tag lead-measure-api:latest 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
+  - docker push 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
