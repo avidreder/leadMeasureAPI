@@ -1,20 +1,21 @@
 sudo: required
 language: java
-
 services:
-  - docker
-
+- docker
 install:
-  - echo "install nothing!"
-
+- echo "install nothing!"
 script:
-  - echo "no tests!"
-
+- echo "no tests!"
 after_success:
-  - docker --version  # document the version travis is using
-  - pip install --user awscli # install aws cli w/o sudo
-  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
-  - eval $(aws ecr get-login --region us-west-2) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
-  - docker build -t lead-measure-api .
-  - docker tag lead-measure-api:latest 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
-  - docker push 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
+- docker --version
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- eval $(aws ecr get-login --region us-west-2)
+- docker build -t lead-measure-api .
+- docker tag lead-measure-api:latest 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
+- docker push 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
+env:
+  global:
+  - secure: Fegb4vsZWUfeXflUKSc6/eCX4rv1EiL0U25R7AAOZEVqg/+z4k6eZgsK0wYsS36cnw8afdwTmR+KLiEbO7+b/wliZ4Ip60Jh6gHMu9Hx9oICMMgL7MyEd6pA6+GRX/OfLdfCNiIb0VaD+Ay+W1n8wDBDEgsxiiGBi/kHwMEiSEZuttPH04pk6a0buK5vplJtSaMvhYI206mzMLp3/2XSwSFk7mIYFaHCzCEQPb2aqQCDf+c3V4Uax9Ta2kWLfKBtM7vMmJlAxQJzhu2l5ckaBTYWjAAkJRFUw76wGpqLfpah5UZgOGA1xeuPAFI5+JF+X6j5sNEXXDwuk7IIwQDzd5PPxzP7RBon4mPqqOG6mPY8YbwCVH/Fguf/DnK8IWZ4oFB2kStGDKHzwRiZXFm41DxIclZivvP0EIZc31lFbz+aQCbH7L+s70p0/TEEKfH01ZBd0dGaq+TOeFPTbt53jRPAWz5N7m5030XgjwQ4ZRiUzVGVKxIrtOmwB8KSrdXdB76GqqoS/MrJQFwXgvEd57B/AAHgUlShwVANq6YX24Cnajg5G3KRIu2ruB/KTZmcooyghdZFjSwnv/gQ6s9m5ezdPN/xeMUAql08wQPRcTOCZ5ycz5cW0iKV9C5iwoeLKr0/4cBzbf11Ck7zAv2bCWx3IraK7ZtUtvrQN3b/Z20=
+  - secure: vYcMrAIQRxQ+rTg/60kL5yfqwqWzURyGuRaJ4Wx1eclkkjmr2y63TO6dI/urhZBU6WqHeBholZ/ERNnbs6w5V2dqzK/rOmoAgSnV+6g4u6EG41nZh8hNGJ+RGURLkBrT4Gy8Q1mY+ckN/E/qk+6PaUXIr7dDd5msNw+PzdW2KdJUnwkSu8FMXEJ6TU3mFm4FZbsZMB+WxNsZQskXcFZJBf7zOTJzBGKcKyB4fTloP0zaMGcUuVuMfMttJ8j6P5c5LLgi41SwiG3YtxmxJjZ5J3qTKakSg6xhOrPyCHXik/dVmj5Mhl49HCFj4pBqKkLuE790TizeKT87sjPG0+36rMWpxCuNGOmVhqaHvfVNQd3/kvwowxF/qRTqMJnE3Pnvuif+n32aCM7diq9caIh0fzxNlwIQkNGxjOLgYbioxXE/0pnhkVhkxrD3UiMvnyDYWiC8ZjGPF0t9NeCMm7nNraHFKAIC37lLyAyK8a9suWF/khWObvzbepZCvCjpOXkowjh0n4Hr2CNclqLIkAf4FDFUS3wvgY72fzCs4iw0Q9KftFsY5NSRNZbX4Zf8ON5Z8SFz1RlEiZ1sBmsh+LTUuhguOCG+2hmAFHEV1gLCvHl9S4xDS3FfETA6OGygclFBzHnCB81oYB/ZatXdgyMCG5yJ8VtRzXrK1kCfGxUPhVo=
+  - secure: SxyFxUGKDnUuInoKgDoEQJyb2+1BGvsAteOhR5XfuIBtSqMF3cU4FrIJwzuJpcSvO8nCYqWHHjQM0c5ra+d9Kce862wOtQlifETDlXKQqMq2oQKWdAxhGGioE+A/IOfxsQxSPxdM3D3886Fik90Y0bZKifYyEnzTSOyYvANiom+9V5pSuX2gcBozXEvaKCGFvuS8uDW4587fE+kpDdSjwqWboDdRXAeLhhOUCe29L6q13xIW2iAPjO54AvO3+gsw1L2U8x8tPEGLtT0vE+chBbW+SZJy3G0nAS7Sc1kljL4ecdJutAgKIP3p50hxT7SAJ09tZ4VzDeTlVC9BJHsYlUymkm+amKB63V2nq65BgUbxw5QoMLBHuKGOd/dajsSGyJx8Iyp5ZB30PIfAP2Z6IfZqJN/u/GOLcKg6K1PBkKz9/wOjd7uSgzPxuQrYy7RJS91J8Y/P5xvke7R7fl9pr/1uSr/QV82XeiWctuYEmbkNkPWYJA8kCcFuqfKMz9xVQIwtBLba/73FjZmZo3fGpo9VGSpHXyVirWAbmgNyQPuTJmDE7xqY/aoijjxsM1uhwFoMl6xLhkV+8L/Xdj7ZSi/kKsjSBOmtuOKsG5mjqjZ2oAGW96k53wyq3DtgVKRYC2xNyp7zdUUE4bdRbz8ABTNFk1QNH3NTOJWjlfXAzGg=
