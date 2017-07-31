@@ -14,7 +14,7 @@ after_success:
 - docker build -t lead-measure-api .
 - docker tag lead-measure-api:latest 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
 - docker push 637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest
-- aws ecs update-service --cluster default --region us-west-2 --service lead-measure-api --task-definition $(aws ecs register-task-definition --cli-input-json file://lead-measure-api-blueprint-def.json | jq .taskDefinition.taskDefinitionArn | awk -F/ '{print $2}' | awk -F\" '{print $1}') --desired-count 1
+- aws ecs update-service --cluster default --region us-west-2 --service lead-measure-api --task-definition $(aws ecs register-task-definition --cli-input-json file://lead-measure-api-blueprint-def.json --region us-west-2 | jq .taskDefinition.taskDefinitionArn | awk -F/ '{print $2}' | awk -F\" '{print $1}') --desired-count 1
 env:
   global:
   - secure: vYcMrAIQRxQ+rTg/60kL5yfqwqWzURyGuRaJ4Wx1eclkkjmr2y63TO6dI/urhZBU6WqHeBholZ/ERNnbs6w5V2dqzK/rOmoAgSnV+6g4u6EG41nZh8hNGJ+RGURLkBrT4Gy8Q1mY+ckN/E/qk+6PaUXIr7dDd5msNw+PzdW2KdJUnwkSu8FMXEJ6TU3mFm4FZbsZMB+WxNsZQskXcFZJBf7zOTJzBGKcKyB4fTloP0zaMGcUuVuMfMttJ8j6P5c5LLgi41SwiG3YtxmxJjZ5J3qTKakSg6xhOrPyCHXik/dVmj5Mhl49HCFj4pBqKkLuE790TizeKT87sjPG0+36rMWpxCuNGOmVhqaHvfVNQd3/kvwowxF/qRTqMJnE3Pnvuif+n32aCM7diq9caIh0fzxNlwIQkNGxjOLgYbioxXE/0pnhkVhkxrD3UiMvnyDYWiC8ZjGPF0t9NeCMm7nNraHFKAIC37lLyAyK8a9suWF/khWObvzbepZCvCjpOXkowjh0n4Hr2CNclqLIkAf4FDFUS3wvgY72fzCs4iw0Q9KftFsY5NSRNZbX4Zf8ON5Z8SFz1RlEiZ1sBmsh+LTUuhguOCG+2hmAFHEV1gLCvHl9S4xDS3FfETA6OGygclFBzHnCB81oYB/ZatXdgyMCG5yJ8VtRzXrK1kCfGxUPhVo=
