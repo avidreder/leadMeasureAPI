@@ -1,0 +1,28 @@
+{
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "volumesFrom": [],
+      "memory": 300,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 4567,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "mountPoints": [],
+      "name": "lead-measure-api",
+      "environment": [],
+      "links": [],
+      "image": "637088740845.dkr.ecr.us-west-2.amazonaws.com/lead-measure-api:latest",
+      "command": [],
+      "cpu": 10
+    }
+  ],
+  "placementConstraints": [],
+  "volumes": [],
+  "family": "lead-measure-api-blueprint"
+}
