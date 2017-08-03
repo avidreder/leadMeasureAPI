@@ -89,14 +89,8 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>**/*.java</include>
+                                <include>**/*IntegrationTest.java</include>
                             </includes>
-                            <groups>integrationTests.IntegrationTest</groups>
-                            <!--
-                                Skips integration tests if the value of skip.integration.tests
-                                property is true
-                            -->
-                            <!--<skipTests>${skip.integration.tests}</skipTests>-->
                         </configuration>
                     </execution>
                 </executions>
@@ -111,13 +105,6 @@
                     </excludes>
                 </configuration>
                 <version>2.19.1</version>
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.apache.maven.surefire</groupId>-->
-                        <!--<artifactId>surefire-junit47</artifactId>-->
-                        <!--<version>2.19.1</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
             </plugin>
         </plugins>
     </build>

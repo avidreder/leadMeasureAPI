@@ -2,10 +2,10 @@ sudo: required
 language: java
 services:
 - docker
-install:
-- echo "install nothing!"
+#install:
+#- mvn clean verify
 script:
-- echo "no tests!"
+- mvn clean verify
 after_success:
 - docker --version
 - pip install --user awscli
