@@ -1,6 +1,4 @@
-package leadAPIRoutes;
-
-import leadAPIRoutes.Routes;
+import app.Application;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import spark.utils.IOUtils;
@@ -17,7 +15,7 @@ public class RouteIntegrationTest {
 
     @BeforeClass
     public static void beforeClass() {
-        Routes.main(null);
+        Application.main(null);
         Spark.awaitInitialization();
     }
 
@@ -74,5 +72,3 @@ public class RouteIntegrationTest {
         }
     }
 }
-
-
