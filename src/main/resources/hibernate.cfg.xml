@@ -8,9 +8,7 @@
 
         <!-- Connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432</property>
-        <property name="hibernate.connection.username">$POSTGRES_USER</property>
-        <property name="hibernate.connection.password">$POSTGRES_PASSWORD</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/leadMeasureData</property>
 
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -22,7 +20,7 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <!-- Annotated entity classes -->
-        <mapping class="com.jvmhub.tutorial.entity.AppUser"/>
+        <mapping class="com.lead.measure.api.entity.Measure"/>
 
     </session-factory>
 </hibernate-configuration>
