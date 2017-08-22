@@ -31,7 +31,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.lead.measure.api.Application</mainClass>
+              <mainClass>net.avidreder.lead_measure.Application</mainClass>
               <classpathPrefix>dependency-jars/</classpathPrefix>
             </manifest>
           </archive>
@@ -62,7 +62,7 @@
                 </descriptorRefs>
                 <archive>
                   <manifest>
-                    <mainClass>com.lead.measure.api.Application</mainClass>
+                    <mainClass>net.avidreder.lead_measure.Application</mainClass>
                   </manifest>
                 </archive>
               </configuration>
@@ -101,6 +101,7 @@
             <skip>${surefire.skip}</skip>
             <excludes>
               <exclude>**/RouteIntegrationTest.java</exclude>
+              <exclude>**/EntityIntegrationTest.java</exclude>
             </excludes>
           </configuration>
           <version>2.19.1</version>
@@ -117,6 +118,16 @@
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-debug-tools</artifactId>
       <version>0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.5.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

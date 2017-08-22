@@ -1,4 +1,4 @@
-package com.lead.measure.api;
+package net.avidreder.lead_measure;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

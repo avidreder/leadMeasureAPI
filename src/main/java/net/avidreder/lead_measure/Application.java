@@ -1,18 +1,30 @@
-package com.lead.measure.api;
+package net.avidreder.lead_measure;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
+import net.avidreder.lead_measure.domain.*;
+import net.avidreder.lead_measure.domain.impl.DomainDaoImpl;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class Application {
 
     // Declare dependencies
-    // public static BookDao bookDao;
+    public static DomainDao domainDao;
+    public static Session session;
+
     // public static UserDao userDao;
 
     public static void main(String[] args) {
 
         // Instantiate your dependencies
-        // bookDao = new BookDao();
-        // userDao = new UserDao();
+        domainDao = new DomainDaoImpl();
+        SessionFactory sessionFactory = new Configuration()
+                .setProperty("hibernate.connection.username", System.getenv("POSTGRES_USER"))
+                .setProperty("hibernate.connection.password", System.getenv("POSTGRES_PASSWORD"))
+                .configure()
+                .buildSessionFactory();
+        session = sessionFactory.openSession();
 
         // Configure Spark
         port(4567);
@@ -25,6 +37,8 @@ public class Application {
         // before("*",                  Filters.handleLocaleChange);
 
         // Set up routes
+        get("/domains", DomainController.getAllDomains);
+        post("/domains", DomainController.createNewDomain);
         get("/hello", (req, res) -> "Hello world");
         get("/healthCheck", (req, res) -> "I am a health check Yayyy");
         notFound((req, res) -> {
@@ -33,8 +47,7 @@ public class Application {
         });
 
         //Set up after-filters (called after each get/post)
-        // after("*",                   Filters.addGzipHeader);
-
+        after("*",(req, res) -> res.type("application/json"));
     }
 
 }

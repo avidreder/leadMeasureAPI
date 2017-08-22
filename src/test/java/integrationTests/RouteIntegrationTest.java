@@ -1,4 +1,5 @@
-import com.lead.measure.api.Application;
+package integrationTests;
+import net.avidreder.lead_measure.Application;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import spark.utils.IOUtils;

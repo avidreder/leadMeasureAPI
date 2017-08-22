@@ -6,4 +6,4 @@ $ mvn clean verify
 
 # Run unit tests
 
-$ mvn clean verify 
+$ mvn install -DskipITs

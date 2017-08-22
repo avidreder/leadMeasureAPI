@@ -6,6 +6,9 @@ services:
      - "4567:4567"
     depends_on:
      - postgres
+    environment:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
   postgres:
     image: postgres:latest
     volumes:
