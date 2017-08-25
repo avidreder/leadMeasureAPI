@@ -4,6 +4,7 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import net.avidreder.lead_measure.domain.*;
@@ -13,10 +14,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 @SpringBootApplication
+@ComponentScan(basePackages = { "net.avidreder.lead_measure.domain"})
 public class Application {
 
     // Declare dependencies
-    public static DomainDao domainDao;
     public static Session session;
 
     // public static UserDao userDao;
@@ -24,7 +25,6 @@ public class Application {
     public static void main(String[] args) {
 
 //         Instantiate your dependencies
-        domainDao = new DomainDaoImpl();
         SessionFactory sessionFactory = new Configuration()
                 .setProperty("hibernate.connection.username", System.getenv("POSTGRES_USER"))
                 .setProperty("hibernate.connection.password", System.getenv("POSTGRES_PASSWORD"))

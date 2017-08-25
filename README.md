@@ -1,5 +1,8 @@
 # Lead Measure API
 
+# Run application
+$ mvn spring-boot:run
+
 # Build and run tests
 
 $ mvn clean verify

@@ -1,11 +1,14 @@
 package net.avidreder.lead_measure.domain.impl;
 import net.avidreder.lead_measure.domain.Domain;
 import net.avidreder.lead_measure.domain.DomainDao;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static net.avidreder.lead_measure.Application.session;
 
+@Service
 public class DomainDaoImpl implements DomainDao{
 
     @Override
