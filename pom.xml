@@ -9,6 +9,20 @@
   <properties>
     <java.version>1.8</java.version>
   </properties>
+  <profiles>
+    <profile>
+      <id>local</id>
+      <properties>
+        <db.jdbcUrl>jdbc:postgresql://localhost:5432/leadMeasureData</db.jdbcUrl>
+      </properties>
+    </profile>
+    <profile>
+      <id>docker-dev</id>
+      <properties>
+        <db.jdbcUrl>jdbc:postgresql://postgres:5432/leadMeasureData</db.jdbcUrl>
+      </properties>
+    </profile>
+  </profiles>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -119,11 +133,22 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
+      <resources>
+          <resource>
+              <directory>src/main/resources</directory>
+              <filtering>true</filtering>
+          </resource>
+      </resources>
   </build>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>4.3.0.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -140,6 +165,11 @@
       <artifactId>jackson-databind</artifactId>
       <version>2.5.1</version>
     </dependency>
+      <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-dbcp</artifactId>
+      <version>8.5.8</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -155,6 +185,10 @@
       <artifactId>hibernate-core</artifactId>
       <version>5.2.10.Final</version>
     </dependency>
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+  </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>

@@ -1,7 +1,7 @@
 # Lead Measure API
 
 # Run application
-$ mvn spring-boot:run
+$ mvn spring-boot:run -P local
 
 # Build and run tests
 

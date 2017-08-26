@@ -12,17 +12,17 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 public class DomainController {
-    private DomainDao domainDao;
+    private DomainService domainService;
 
     @Autowired
-    public void setDomainDao(DomainDao domainDao) {
-        this.domainDao = domainDao;
+    public void setDomainService(DomainService domainService) {
+        this.domainService = domainService;
     }
 
     @RequestMapping(value = "/domains", method = RequestMethod.GET)
-    public ResponseEntity<List<Domain>> listAllDomains() {
-        List<Domain> domains = domainDao.getAllDomains();
-        return new ResponseEntity<List<Domain>>(domains, HttpStatus.OK);
+    public ResponseEntity<Iterable<Domain>> listAllDomains() {
+        Iterable<Domain> domains = domainService.getAllDomains();
+        return new ResponseEntity<Iterable<Domain>>(domains, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/domains", method = RequestMethod.POST)
@@ -30,7 +30,7 @@ public class DomainController {
         if (domainName == null) {
             return new ResponseEntity("Missing required parameter \"domainName\"",HttpStatus.BAD_REQUEST);
         }
-        Domain newDomain = domainDao.createDomain(domainName);
+        Domain newDomain = domainService.createDomain(domainName);
         return new ResponseEntity<Domain>(newDomain, HttpStatus.CREATED);
     }
 }
