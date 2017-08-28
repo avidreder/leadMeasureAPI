@@ -11,6 +11,10 @@ import javax.persistence.Id;
 @Entity
 public class Domain implements Serializable {
 
+    public Domain() {
+        this.domainName = "";
+    }
+
     public Domain(String domainName) {
         this.domainName = domainName;
     }
@@ -18,15 +22,15 @@ public class Domain implements Serializable {
     @Id
     @Column(name = "domain_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String domainName;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

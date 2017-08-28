@@ -16,7 +16,7 @@ public class DomainServiceImpl implements DomainService {
     }
 
     @Override
-    public Domain createDomain(String domainName) {
+    public Domain createNewDomain(String domainName) {
         Domain domain = new Domain(domainName);
         domainRepository.save(domain);
         return domain;
@@ -25,5 +25,21 @@ public class DomainServiceImpl implements DomainService {
     @Override
     public Iterable<Domain> getAllDomains() {
        return domainRepository.findAll();
+    }
+
+    @Override
+    public Domain getDomainById(Integer id) {
+        return domainRepository.findOne(id);
+    }
+
+    @Override
+    public Domain updateDomainById(Integer id, Domain domain) {
+        domain.setId(id);
+        return domainRepository.save(domain);
+    }
+
+    @Override
+    public void deleteDomainById(Integer id) {
+        domainRepository.delete(id);
     }
 }
