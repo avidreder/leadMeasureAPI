@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@ImportResource("classpath:/applicationContext.xml")
-@ComponentScan(basePackages = { "net.avidreder.lead_measure.domain"})
+@ComponentScan(basePackages = {"net.avidreder.lead_measure.domain","net.avidreder.lead_measure.measure"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
