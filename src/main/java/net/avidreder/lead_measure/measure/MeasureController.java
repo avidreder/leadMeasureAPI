@@ -53,6 +53,6 @@ public class MeasureController {
             return new ResponseEntity("Missing required parameter \"id\"",HttpStatus.BAD_REQUEST);
         }
         measureService.deleteMeasureById(id);
-        return new ResponseEntity<>("measure deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Measure deleted", HttpStatus.OK);
     }
 }

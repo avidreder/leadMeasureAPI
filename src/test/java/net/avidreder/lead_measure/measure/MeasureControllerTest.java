@@ -1,4 +1,5 @@
 package net.avidreder.lead_measure.measure;
+import net.avidreder.lead_measure.domain.DomainService;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -26,6 +27,9 @@ public class MeasureControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @MockBean
+    private DomainService domainService;
 
     @MockBean
     private MeasureService measureService;

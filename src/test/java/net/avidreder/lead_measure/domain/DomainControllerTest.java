@@ -1,4 +1,5 @@
 package net.avidreder.lead_measure.domain;
+import net.avidreder.lead_measure.measure.MeasureService;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,6 +30,9 @@ public class DomainControllerTest {
 
     @MockBean
     private DomainService domainService;
+
+    @MockBean
+    private MeasureService measureService;
 
     @Test
     public void getDomains() throws Exception {

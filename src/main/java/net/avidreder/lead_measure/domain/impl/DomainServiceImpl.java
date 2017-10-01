@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DomainServiceImpl implements DomainService {
 
+    @Autowired
     private DomainRepository domainRepository;
 
-    @Autowired
-    public void setDomainRepository(DomainRepository domainRepository) {
-        this.domainRepository = domainRepository;
-    }
+    // @Autowired
+    // public void setDomainRepository(DomainRepository domainRepository) {
+    //     this.domainRepository = domainRepository;
+    // }
 
     @Override
     public Domain createNewDomain(String domainName) {
