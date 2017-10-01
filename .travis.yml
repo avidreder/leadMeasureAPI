@@ -5,7 +5,7 @@ services:
 #install:
 #- mvn clean verify
 script:
-- mvn clean verify
+- mvn clean verify -DskipITs
 after_success:
 - docker --version
 - pip install --user awscli

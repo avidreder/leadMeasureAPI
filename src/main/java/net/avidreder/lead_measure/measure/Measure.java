@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import net.avidreder.lead_measure.domain.Domain;
 
 @Entity
 public class Measure implements Serializable {
@@ -19,6 +22,11 @@ public class Measure implements Serializable {
         this.measureName = measureName;
     }
 
+    public Measure(String measureName, Domain domain) {
+        this.domain = domain;
+        this.measureName = measureName;
+    }
+
     @Id
     @Column(name = "measure_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +34,23 @@ public class Measure implements Serializable {
 
     private String measureName;
 
+    @ManyToOne
+    private Domain domain;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Domain getDomain() {
+        return this.domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
     }
 
     public String getMeasureName() {

@@ -4,6 +4,9 @@ import net.avidreder.lead_measure.measure.MeasureService;
 import net.avidreder.lead_measure.measure.MeasureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
+
+import net.avidreder.lead_measure.domain.Domain;
 
 @Service
 public class MeasureServiceImpl implements MeasureService {
@@ -16,30 +19,36 @@ public class MeasureServiceImpl implements MeasureService {
     }
 
     @Override
-    public Measure createNewMeasure(String measureName) {
-        Measure measure = new Measure(measureName);
+    public Measure createNewMeasure(Integer domainId, String measureName) {
+        Domain domain = new Domain();
+        domain.setId(domainId);
+        Measure measure = new Measure(measureName, domain);
         measureRepository.save(measure);
         return measure;
     }
 
     @Override
-    public Iterable<Measure> getAllMeasures() {
-       return measureRepository.findAll();
+    public Iterable<Measure> getAllMeasures(Integer domainId) {
+       return measureRepository.findByDomain_Id(domainId);
     }
 
     @Override
-    public Measure getMeasureById(Integer id) {
-        return measureRepository.findOne(id);
+    public Measure getMeasureById(Integer domainId, Integer id) {
+        return measureRepository.findByIdAndDomain_Id(id, domainId);
     }
 
     @Override
-    public Measure updateMeasureById(Integer id, Measure measure) {
+    public Measure updateMeasureById(Integer domainId, Integer id, Measure measure) {
         measure.setId(id);
+        Domain domain = new Domain();
+        domain.setId(domainId);
+        measure.setDomain(domain);
         return measureRepository.save(measure);
     }
 
     @Override
-    public void deleteMeasureById(Integer id) {
-        measureRepository.delete(id);
+    @Transactional
+    public void deleteMeasureById(Integer domainId, Integer id) {
+        measureRepository.deleteByIdAndDomain_Id(id, domainId);
     }
 }

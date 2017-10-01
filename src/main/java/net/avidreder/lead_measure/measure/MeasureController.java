@@ -16,43 +16,57 @@ public class MeasureController {
         this.measureService = measureService;
     }
 
-    @RequestMapping(value = "/measures", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Measure>> listAllmeasures() {
-        Iterable<Measure> measures = measureService.getAllMeasures();
+    @RequestMapping(value = "/{domainId}/measures", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Measure>> listAllmeasures(@PathVariable("domainId") Integer domainId) {
+        if (domainId == null) {
+            return new ResponseEntity("Missing required parameter \"domainId\"",HttpStatus.BAD_REQUEST);
+        }
+        Iterable<Measure> measures = measureService.getAllMeasures(domainId);
         return new ResponseEntity<Iterable<Measure>>(measures, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/measures", method = RequestMethod.POST)
-    public ResponseEntity<?> createNewMeasure(@RequestParam String measureName) {
-        if (measureName == null) {
-            return new ResponseEntity("Missing required parameter \"measureName\"",HttpStatus.BAD_REQUEST);
+    @RequestMapping(value = "/{domainId}/measures", method = RequestMethod.POST)
+    public ResponseEntity<?> createNewMeasure(@PathVariable("domainId") Integer domainId, @RequestParam String measureName) {
+        if (domainId == null) {
+            return new ResponseEntity("Missing required parameter \"domainId\"",HttpStatus.BAD_REQUEST);
         }
-        Measure newMeasure = measureService.createNewMeasure(measureName);
+        Measure newMeasure = measureService.createNewMeasure(domainId, measureName);
         return new ResponseEntity<Measure>(newMeasure, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/measure/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Measure> getmeasureById(@PathVariable("id") Integer id) {
-        Measure measure = measureService.getMeasureById(id);
-        return new ResponseEntity<Measure>(measure, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/measure/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updatemeasureById(@PathVariable("id") Integer id, @RequestBody Measure newMeasure) {
-        if (newMeasure == null) {
-            return new ResponseEntity("Missing required parameter \"newMeasure\"",HttpStatus.BAD_REQUEST);
-        }
-        newMeasure.setId(id);
-        Measure updatedmeasure = measureService.updateMeasureById(id, newMeasure);
-        return new ResponseEntity<Measure>(updatedmeasure, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/measure/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deletemeasureByID(@PathVariable("id") Integer id) {
+    @RequestMapping(value = "/{domainId}/measure/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Measure> getmeasureById(@PathVariable("domainId") Integer domainId, @PathVariable("id") Integer id) {
         if (id == null) {
             return new ResponseEntity("Missing required parameter \"id\"",HttpStatus.BAD_REQUEST);
         }
-        measureService.deleteMeasureById(id);
+        if (domainId == null) {
+            return new ResponseEntity("Missing required parameter \"domainId\"",HttpStatus.BAD_REQUEST);
+        }
+        Measure measure = measureService.getMeasureById(domainId, id);
+        return new ResponseEntity<Measure>(measure, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{domainId}/measure/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updatemeasureById(@PathVariable("domainId") Integer domainId, @PathVariable("id") Integer id, @RequestBody Measure newMeasure) {
+        if (id == null) {
+            return new ResponseEntity("Missing required parameter \"id\"",HttpStatus.BAD_REQUEST);
+        }
+        if (domainId == null) {
+            return new ResponseEntity("Missing required parameter \"domainId\"",HttpStatus.BAD_REQUEST);
+        }
+        Measure updatedmeasure = measureService.updateMeasureById(domainId, id, newMeasure);
+        return new ResponseEntity<Measure>(updatedmeasure, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{domainId}/measure/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteMeasureByID(@PathVariable("domainId") Integer domainId, @PathVariable("id") Integer id) {
+        if (id == null) {
+            return new ResponseEntity("Missing required parameter \"id\"",HttpStatus.BAD_REQUEST);
+        }
+        if (domainId == null) {
+            return new ResponseEntity("Missing required parameter \"domainId\"",HttpStatus.BAD_REQUEST);
+        }
+        measureService.deleteMeasureById(domainId, id);
         return new ResponseEntity<>("Measure deleted", HttpStatus.OK);
     }
 }
