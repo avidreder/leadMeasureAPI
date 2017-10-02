@@ -31,7 +31,7 @@ public class MeasureControllerIT {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/measures");
+        this.base = new URL("http://localhost:" + port + "/1/measures");
     }
 
     @Test

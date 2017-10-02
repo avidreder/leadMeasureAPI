@@ -1,4 +1,5 @@
 package net.avidreder.lead_measure.measure;
+import net.avidreder.lead_measure.domain.Domain;
 import net.avidreder.lead_measure.domain.DomainService;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -37,8 +38,8 @@ public class MeasureControllerTest {
     @Test
     public void getMeasures() throws Exception {
         List<Measure> measures = new ArrayList<Measure>();
-        when(measureService.getAllMeasures()).thenReturn(measures);
-        this.mvc.perform(MockMvcRequestBuilders.get("/measures").accept(MediaType.APPLICATION_JSON))
+        when(measureService.getAllMeasures(1)).thenReturn(measures);
+        this.mvc.perform(MockMvcRequestBuilders.get("/1/measures").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[]")));
     }
@@ -46,11 +47,14 @@ public class MeasureControllerTest {
     @Test
     public void createNewMeasureSuccess() throws Exception {
         Measure measure = new Measure("testMeasure");
+        Domain domain = new Domain("testDomain");
+        domain.setId(1);
         measure.setId(1);
+        measure.setDomain(domain);
         Gson gson = new Gson();
         String json = gson.toJson(measure);
-        when(measureService.createNewMeasure("testMeasure")).thenReturn(measure);
-        this.mvc.perform(MockMvcRequestBuilders.post("/measures")
+        when(measureService.createNewMeasure(1, "testMeasure")).thenReturn(measure);
+        this.mvc.perform(MockMvcRequestBuilders.post("/1/measures")
             .param("measureName", "testMeasure"))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo(json.toString())));
@@ -59,11 +63,14 @@ public class MeasureControllerTest {
     @Test
     public void getMeasureByID() throws Exception {
         Measure measure = new Measure("testMeasure");
+        Domain domain = new Domain("testDomain");
+        domain.setId(1);
         measure.setId(1);
+        measure.setDomain(domain);
         Gson gson = new Gson();
         String json = gson.toJson(measure);
-        when(measureService.getMeasureById(1)).thenReturn(measure);
-        this.mvc.perform(MockMvcRequestBuilders.get("/measure/1"))
+        when(measureService.getMeasureById(1, 1)).thenReturn(measure);
+        this.mvc.perform(MockMvcRequestBuilders.get("/1/measure/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo(json.toString())));
     }
@@ -71,11 +78,14 @@ public class MeasureControllerTest {
     @Test
     public void updateMeasure() throws Exception {
         Measure measure = new Measure("newTestMeasure");
+        Domain domain = new Domain("testDomain");
+        domain.setId(1);
         measure.setId(1);
+        measure.setDomain(domain);
         Gson gson = new Gson();
         String json = gson.toJson(measure);
-        when(measureService.updateMeasureById(anyInt(), Mockito.any(Measure.class))).thenReturn(measure);
-        this.mvc.perform(MockMvcRequestBuilders.put("/measure/{id}", 1)
+        when(measureService.updateMeasureById(anyInt(), anyInt(), Mockito.any(Measure.class))).thenReturn(measure);
+        this.mvc.perform(MockMvcRequestBuilders.put("/1/measure/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk())
@@ -84,7 +94,7 @@ public class MeasureControllerTest {
 
     @Test
     public void deleteMeasureByID() throws Exception {
-        this.mvc.perform(MockMvcRequestBuilders.delete("/measure/1"))
+        this.mvc.perform(MockMvcRequestBuilders.delete("/1/measure/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("Measure deleted")));
     }
